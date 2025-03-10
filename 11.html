@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable Table</title>
+    <style>
+        th.ascending::after {
+            content: " ▲";
+            color: red;
+            margin-left: 5px;
+        }
+
+        th.descending::after {
+            content: " ▼";
+            color: green;
+            margin-left: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table id="clientTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Client No.</th>
+                <th onclick="sortTable(1)">Name</th>
+                <th onclick="sortTable(2)">Batch Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>2</td><td>Alice</td><td>Yoga</td></tr>
+            <tr><td>1</td><td>Bob</td><td>Pilates</td></tr>
+            <tr><td>3</td><td>Charlie</td><td>Zumba</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        function sortTable(columnIndex) {
+            const table = document.getElementById('clientTable');
+            const rows = Array.from(table.rows).slice(1); // Exclude header row
+            const header = table.rows[0].cells[columnIndex];
+
+            const isAscending = !header.classList.contains('ascending');
+
+            Array.from(header.parentNode.children).forEach(th => {
+                th.classList.remove('ascending', 'descending');
+            });
+
+            header.classList.add(isAscending ? 'ascending' : 'descending');
+
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.cells[columnIndex].textContent.trim();
+                const cellB = rowB.cells[columnIndex].textContent.trim();
+                return isAscending
+                    ? cellA.localeCompare(cellB)
+                    : cellB.localeCompare(cellA);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+        }
+    </script>
+</body>
+</html>

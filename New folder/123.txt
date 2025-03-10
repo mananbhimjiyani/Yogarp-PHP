@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Nisha's Yoga Studio</title>
+  <meta content="Welcome to Nisha's Yoga Studio, a sanctuary of wellness and tranquillity founded in 2016 by the esteemed and renowned yoga mentor, Nisha Madam. Nestled in the heart of our bustling city Rajkot, our studio offers a serene haven where individuals can embark on a transformative journey of self-discovery and holistic well-being." name="description">
+  <meta content="Yoga, Gujarat, India, Nisha's Yoga Studio" name="keywords">
+  <meta content="index" name="robots">
+  <meta content="follows" name="robots">
+  <meta name="AdsBot-Google" content="index">
+  <meta name="googlebot-news" content="index">
+  <meta property="og:title" content="Nisha's Yoga Studio" />
+  <meta property="og:description" content="Welcome to the Serene Oasis of Nisha's Yoga Studio, established in 2016 by the esteemed yoga mentor, Nisha Madam, in the bustling heart of Rajkot city. Our sanctuary is dedicated to holistic well-being and embarking on transformative journeys of self-discovery." />
+  <meta property="og:url" content="http://www.nishasyoga.com" />
+  <meta property="og:image" content="assets/img/logo.jpg" alt="Logo of Nisha's Yoga Studio" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+ </head>
+<body>
+  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+  <header id="header" class="d-flex flex-column justify-content-center">
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+		<li><a href="#milestone" class="nav-link scrollto"><i class="bx bx-like"></i> <span>Milestone</span></a></li>
+		<li><a href="https://nishasyoga.com/NYSForms/media/" class="nav-link scrollto"><i class="bx bx-caret-right"></i> <span>Media</span></a></li>
+        <li><a href="#services" class="nav-link scrollto"><i class="bx bx-body"></i> <span>Yoga</span></a></li>
+		<li><a href="#testimonials" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Jobs</span></a></li>
+		<li><a href="#faq" class="nav-link scrollto"><i class="bx bx-question-mark"></i> <span>FAQs</span></a></li>
+        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+		<li><a href="https://nishasyoga.com/NYSForms/welcome/" class="nav-link scrollto"><i class="bx bx-message-rounded-detail"></i> <span>Forms</span></a></li>
+		      </ul>
+    </nav>
+  </header>
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Nisha's Yoga Studio</h1>
+      <p><span class="typed" data-typed-items="Authentic, Hatha, Vinyasa, Ashtanga, Prop, Aerial, Restorative, Power, Wall Bar, Rope, Wall, Pilates"></span>Yoga</p>
+      <div class="social-links">
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-linkedin"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-youtube"></i></a>
+      </div>
+    </div>
+  </section>
+  <main id="main">
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>Welcome to Nisha's Yoga Studio, a sanctuary of wellness and tranquillity founded in 2016 by the esteemed and renowned yoga mentor, Nisha Madam. Nestled in the heart of our bustling city Rajkot, our studio offers a serene haven where individuals can embark on a transformative journey of self-discovery and holistic well-being.</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <img src="assets/img/profile-img.png" class="img-fluid" alt="Nisha Bhimjiyani or Nishamadam of Nisha's Yoga Studio">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content">
+            <h3>Led by the experienced and highly regarded  &amp; Nisha Madam,</h3>
+            <p class="fst-italic">our studio embodies her passion for yoga and her unwavering commitment to sharing its profound benefits with others.
+            </p>
+            <p align="justify">
+              With her extensive knowledge and expertise, Nisha Madam has earned a reputation as a revered mentor in the world of yoga. Her unique teaching style blends ancient wisdom with modern practices, creating a harmonious and accessible approach that caters to practitioners of all levels.
+At Nisha's Yoga Studio, we believe in the power of yoga to harmonize the mind, body, and spirit. Our carefully curated classes and workshops cater to individuals seeking physical strength, mental clarity, and inner peace. Whether you are a beginner on the path to self-discovery or an experienced yogi looking to deepen your practice, our studio provides a nurturing environment for growth and personal transformation.
+Our spacious and inviting studio is equipped with state-of-the-art facilities, designed to enhance your yoga experience. From our tranquil practice rooms to our dedicated meditation spaces, every aspect of our studio has been thoughtfully crafted to create an atmosphere of serenity and inspiration.
+We offer a wide range of classes, including Hatha, Vinyasa, Ashtanga, Prop Yoga, Aerial Yoga, Restorative yoga and many more styles of Morden Yoga allowing you to explore and embrace the diverse aspects of this ancient discipline. Our skilled instructors, trained by Nisha Madam herself, bring their unique expertise and compassionate approach to each class, ensuring that you receive personalized attention and guidance throughout your practice.
+ </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="facts" class="facts">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Facts</h2>
+          <p>We offer a wide range of classes, including Hatha, Vinyasa, Ashtanga, Prop Yoga, Aerial Yoga, Restorative yoga and many more styles of Morden Yoga allowing you to explore and embrace the diverse aspects of this ancient discipline. </p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-emoji-smile"></i>
+              <span data-purecounter-start="0" data-purecounter-end="52322" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Happy Clients</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <i class="bi bi-journal-richtext"></i>
+              <span data-purecounter-start="0" data-purecounter-end="15213" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Online Class Hours</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="bi bi-headset"></i>
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Serving Locations</p>
+            </div></div>
+		  <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="bi bi-headset"></i>
+              <span data-purecounter-start="0" data-purecounter-end="9" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Trained Staff</p>
+            </div>
+          </div>
+		  </div></div>
+		  </section>
+		  
+		      <!-- ======= milestone Section ======= -->
+    <section id="milestone" class="resume">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Milestone</h2>
+          <p>Nisha's Yoga Studio has come a long way since its humble beginnings as a personal yoga mentor. Today, it is one of the most popular and respected yoga studios in Rajkot. Nisha's passion for yoga and her commitment to her students is evident in everything she does. She has created a welcoming and supportive environment where students of all levels can learn and grow.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="resume-title">Physical</h3>
+            <div class="resume-item">
+              <h4>2016</h4>
+              <h5>A Personal Yoga Mentor Begins</h5>
+              <p>In the year 2016, the journey of Nisha's Yoga Studio embarked as a humble yet passionate personal yoga mentor. Nisha, our founder, started her mission to inspire and guide individuals towards a healthier and more balanced life through the practice of yoga. Her dedication and expertise laid the foundation for what would become a flourishing yoga community.</p>
+             </div>
+
+           <!-- <h3 class="resume-title">Education</h3>-->
+            <div class="resume-item">
+              <h4>2018</h4>
+              <h5>The Birth of the First Studio</h5>
+              <p>In 2018, Nisha's Yoga Studio reached a significant milestone by opening its first physical studio. This marked a crucial step in expanding the reach of yoga in Rajkot and beyond. With a serene and welcoming space, the studio quickly became a hub for yoga enthusiasts of all levels, offering a diverse range of classes to cater to everyone's needs.</p>
+            </div>
+            <div class="resume-item">
+              <h4>2022</h4>
+              <h5>Elevating the First Studio</h5>
+              <p>The year 2022 witnessed a significant transformation as we upgraded our first studio. We enhanced the facilities, ambiance, and overall experience to create an even more inviting and tranquil environment for our students. Our dedication to excellence in yoga instruction was matched by a commitment to creating a nurturing space for self-discovery and growth.</p>
+            </div>
+			<div class="resume-item">
+              <h4>2023</h4>
+              <h5>A New Chapter Begins</h5>
+              <p>As we continue to grow and evolve, we are thrilled to announce the opening of our second studio in 2023. This marks a new chapter in our journey, expanding our reach to serve more members of our community and share the profound benefits of yoga with a wider audience.</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="resume-title">Professional</h3>
+            <div class="resume-item">
+              <h4>2020</h4>
+              <h5>Embracing the Digital World</h5>
+              <p>In 2020, recognizing the evolving needs of our global community, Nisha's Yoga Studio ventured into the digital realm. With the launch of online sessions, we made yoga accessible to individuals far and wide, providing a sanctuary of calm and wellness in the midst of a challenging year. Our commitment to spreading the benefits of yoga remained unwavering, even in the face of adversity.</p>
+            </div>
+            <div class="resume-item">
+              <h4>2022</h4>
+              <h5>Aerial Yoga, Prop Yoga & Rope Yoga</h5>
+               <p>In 2022, we launched three exciting new yoga programs: Aerial Yoga, Prop Yoga, and Rope Yoga. These innovative additions brought fresh and unique experiences to our yoga offerings, allowing our participants to explore different dimensions of their practice. Aerial Yoga involves performing yoga postures suspended in silk hammocks, Prop Yoga incorporates various props to enhance alignment and deepen stretches, while Rope Yoga utilizes specialized ropes to assist in achieving challenging poses and improving flexibility. These additions marked a significant expansion of our yoga curriculum, providing our community with a diverse range of options to enhance their physical and mental well-being.</p>
+            </div>
+			           <div class="resume-item">
+              <h4>2023</h4>
+              <h5>Wall Bar and Pilates as Yoga</h5>
+              <p>In 2023, we are thrilled to introduce two new advanced yoga styles to our repertoire: Wall Bar Yoga and Pilates as Yoga. These additions reflect our commitment to offering our community innovative and diverse practices that cater to various preferences and goals. These two new styles join our existing offerings, enriching our yoga community's opportunities for growth, self-discovery, and overall well-being. </p>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Resume Section -->
+
+    <!-- ======= Portfolio Section ======= 
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Media</h2>
+          <p>We offer a variety of instructional audio and video resources to support your yoga practice, including guided sessions for Pranayama counting, Suryanamaskar counting, and meditation. These resources are designed to help you deepen your understanding of these fundamental yoga techniques and enhance your overall experience. Whether you're a beginner or an experienced practitioner, our audio and video guides provide valuable assistance on your yoga journey.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">Meditation</li>
+              <li data-filter=".filter-card">Counting</li>
+              <li data-filter=".filter-web">Performance</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="Gujarati Meditation">
+              <div class="portfolio-info">
+                <h4>Gujarati Meditation</h4>
+                <p>27 Munites</p>
+                <div class="portfolio-links">
+						<audio controls>
+						  <source src="horse.ogg" type="audio/ogg">
+						  <source src="./Audio/27.mp3" type="audio/mpeg">
+						Your browser does not support the audio element.
+						</audio>-->
+                 <!-- <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>-->
+<!-- 
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 2</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 2</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 2</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 3</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 1</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 3</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>--><!--End Portfolio Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Types of Yoga</h2>
+          <p>Nisha's Yoga Studio offers a diverse range of yoga styles to cater to various preferences and needs. Here are some of the types of yoga you can experience at Nisha's Yoga Studio:</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box iconbox-blue">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="bx bxl-dribbble"></i>
+              </div>
+              <h4><a href="">Authentic Yoga</a></h4>
+              <p>This classic form of yoga focuses on physical postures, breathing techniques, and relaxation. It provides a solid foundation for beginners and helps improve flexibility and balance.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box iconbox-orange ">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
+                </svg>
+                <i class="bx bx-file"></i>
+              </div>
+              <h4><a href="">Aerial Yoga, Wall Bar Yoga, Rope Yoga</a></h4>
+              <p>involves performing yoga postures while suspended in silk hammocks, allowing for greater flexibility, strength, and decompression of the spine.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-pink">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                </svg>
+                <i class="bx bx-tachometer"></i>
+              </div>
+              <h4><a href="">Astang Yoga</a></h4>
+              <p>is a structured and physically demanding practice that follows a specific sequence of postures and synchronized breathing. It is known for its progressive nature and is ideal for those seeking a disciplined practice.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box iconbox-yellow">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,503.46388370962813C374.79870501325706,506.71871716319447,464.8034551963731,527.1746412648533,510.4981551193396,467.86667711651364C555.9287308511215,408.9015244558933,512.6030010748507,327.5744911775523,490.211057578863,256.5855673507754C471.097692560561,195.9906835881958,447.69079081568157,138.11976852964426,395.19560036434837,102.3242989838813C329.3053358748298,57.3949838291264,248.02791733380457,8.279543830951368,175.87071277845988,42.242879143198664C103.41431057327972,76.34704239035025,93.79494320519305,170.9812938413882,81.28167332365135,250.07896920659033C70.17666984294237,320.27484674793965,64.84698225790005,396.69656628748305,111.28512138212992,450.4950937839243C156.20124167950087,502.5303643271138,231.32542653798444,500.4755392045468,300,503.46388370962813"></path>
+                </svg>
+                <i class="bx bx-layer"></i>
+              </div>
+              <h4><a href="">Vinyasa Yoga</a></h4>
+              <p>is a dynamic, flowing style of yoga where poses are synchronized with breath. It builds strength, endurance, and promotes mindfulness through continuous movement.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box iconbox-red">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
+                </svg>
+                <i class="bx bx-slideshow"></i>
+              </div>
+              <h4><a href="">Prop Yoga</a></h4>
+              <p>emphasizes precision and alignment in poses. It uses props like belts and blocks to aid in achieving proper alignment, making it accessible for practitioners of all levels. It is also known as Iyengar Yoga.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-teal">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,566.797414625762C385.7384707136149,576.1784315230908,478.7894351017131,552.8928747891023,531.9192734346935,484.94944893311C584.6109503024035,417.5663521118492,582.489472248146,322.67544863468447,553.9536738515405,242.03673114598146C529.1557734026468,171.96086150256528,465.24506316201064,127.66468636344209,395.9583748389544,100.7403814666027C334.2173773831606,76.7482773500951,269.4350130405921,84.62216499799875,207.1952322260088,107.2889140133804C132.92018162631612,134.33871894543012,41.79353780512637,160.00259165414826,22.644507872594943,236.69541883565114C3.319112789854554,314.0945973066697,72.72355303640163,379.243833228382,124.04198916343866,440.3218312028393C172.9286146004772,498.5055451809895,224.45579914871206,558.5317968840102,300,566.797414625762"></path>
+                </svg>
+                <i class="bx bx-arch"></i>
+              </div>
+              <h4><a href="">Power Yoga</a></h4>
+              <p>A vigorous and fitness-oriented yoga style, Power Yoga combines strength-building exercises with yoga poses. It helps improve cardiovascular health, flexibility, and muscle tone.</p>
+            </div>
+          </div>
+<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box iconbox-blue">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="bx bxl-dribbble"></i>
+              </div>
+              <h4><a href="">Kundalini Yoga</a></h4>
+              <p>focuses on awakening the dormant energy at the base of the spine through a combination of postures, breathwork, and meditation. It aims to promote spiritual growth and self-awareness.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box iconbox-orange ">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
+                </svg>
+                <i class="bx bx-file"></i>
+              </div>
+              <h4><a href="">Yin Yoga</a></h4>
+              <p>involves holding passive poses for extended periods, targeting the deep connective tissues and promoting relaxation and flexibility.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box iconbox-pink">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                </svg>
+                <i class="bx bx-tachometer"></i>
+              </div>
+              <h4><a href="">Restorative Yoga</a></h4>
+              <p>This gentle practice uses props to support the body in relaxing poses, encouraging deep relaxation, stress relief, and restoration.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+       <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>JOBS</h2>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Yoga Instructor</h3>
+                <h4>Full Time</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  We are looking for an experienced and passionate Yoga Instructor to join our team. You will be responsible for teaching a variety of yoga classes, providing guidance to students and creating a safe and welcoming environment for them.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> <!--End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Yoga Trainer</h3>
+                <h4>Full Time / Part Time</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  We are looking for an experienced or Fressher but  passionate Yoga Trainer to join our team.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> <!--End testimonial item -->
+<!--
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> End testimonial item -->
+<!--
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> End testimonial item -->
+<!-- 
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!--End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section> <!--End Testimonials Section -->
+
+<section id="faq" class="resume">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>FAQs</h2>
+          <p>Questions that we get asked all the time!</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="resume-item">
+              <h4>What makes Nisha's Yoga studio unique compared to others in the area?</h4>
+              <p>What sets us apart is our commitment to providing a wide range of yoga classes and personalized attention to each student's needs. Our experienced instructors, diverse class offerings, and welcoming community create a unique yoga experience.</p>
+            </div>
+						<div class="resume-item">
+              <h4>Where is your studio located?</h4>
+              <p>Our studio is located at Nisha’s Yoga Studio, 91, Kotechanagar, Nr. Kotecha Girls high school, Off. Kalawad Road, Rajkot – 360 001. Gujarat, India.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What are your studio hours?</h4>
+              <p>Our studio hours are </p>
+			<div class="row">			 
+			 <div class="col-lg-4">
+			 
+            	<h3>Regular Batch</h3>
+				<h5>Morning</h5>
+				<ul>
+                <li>06:00 to 07:00</li>
+                <li>07:00 to 08:00</li>
+                <li>08:00 to 09:00</li>
+                <li>09:00 to 10:00</li>
+                <li>10:00 to 11:00</li>
+				</ul>
+				<h5>Evening</h5>
+				<ul>
+                <li>04:00 to 05:00</li>	
+				<li>05:00 to 06:00</li>
+                <li>06:00 to 07:00</li>
+              </ul></div>
+			  <div class="col-lg-4">
+			  <h3>Advance Batch</h3>
+				<h5>Morning</h5>
+				<ul>
+					<li>06:00 to 07:00</li>
+					<li>07:00 to 08:00</li>
+					<li>08:00 to 09:00</li>
+					<li>09:00 to 10:00</li>
+				</ul>
+				<h5 style="margin-top: 35px;" >Evening</h5>
+				<ul>
+					<li>05:00 to 06:00</li>
+					<li>06:00 to 07:00</li>
+              </ul>
+			  </div>
+			 </div>
+			</div>
+			<div class="resume-item">
+              <h4>Can I drop in for a class, or do I need to sign up in advance?</h4>
+              <p>You can drop in for some classes, but we recommend reserving your spot in advance, especially for popular classes, to ensure availability.</p>
+            </div>
+            <div class="resume-item">
+              <h4>What types of yoga classes do you offer?</h4>
+              <p>We offer a variety of yoga classes, including:</p>
+				<div class="row">			 
+			 <div class="col-lg-4">
+				<ul>
+					<li>Hatha yoga</li>
+					<li>Vinyasa yoga</li>
+					<li>Ashtanga yoga</li>
+					<li>Restorative yoga</li>
+					<li>Yin yoga</li>
+					<li>Therapeutic yoga</li>
+					</ul>
+					</div>				
+			 <div class="col-lg-4">
+			 <ul>
+					<li>Pilates yoga</li>
+					<li>Prop yoga</li>
+					<li>Aerial yoga</li>
+					<li>Rope yoga</li>
+					<li>Wall bars yoga</li>	
+              </ul>
+			  </div></div>
+			  	<p>We also offer specialized classes for beginners, pregnant women, and seniors.</p>
+			</div>
+			
+			<div class="resume-item">
+              <h4>Who can take your yoga classes?</h4>
+              <p>All are welcome to join our yoga classes, regardless of age, prior experience, or fitness level. We offer classes tailored to beginners, intermediate practitioners, and advanced practitioners.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Do I need prior yoga experience to join your classes?</h4>
+              <p>No prior experience is necessary. Our classes are designed to accommodate individuals of all skill levels, and our instructors provide modifications and adjustments as needed.</p>
+            </div>
+			<div class="resume-item">
+              <h4>How do I sign up for a class?</h4>
+              <p>You can sign up for a class online, by phone, or in person at the studio.</p>
+            </div>
+			<div class="resume-item">
+              <h4>I have a health condition. Can I still take yoga classes?</h4>
+              <p>Yes, yoga can be beneficial for people with a variety of health conditions. However, it is important to talk to your doctor before starting any new exercise program, including yoga.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What should I wear to yoga class?</h4>
+              <p>We recommend wearing comfortable, breathable clothing that allows you to move freely..</p>
+            </div>
+			<div class="resume-item">
+              <h4>What should I eat before and during classes?</h4>
+              <p>To optimize your yoga practice, it's advisable to ensure your stomach is empty during your session. This means having a full meal at least 3.5 hours before, enjoying breakfast or supper a minimum of 2 hours before, and consuming water or liquids about 30 minutes prior to your class.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Do I need to bring my own yoga mat?</h4>
+              <p>Certainly, you are required to bring your own yoga mat. If you register, you can store your yoga mat with your identification mark in the cupboard in the classroom.</p>
+            </div>
+			
+			<div class="resume-item">
+              <h4>Do you offer private yoga lessons?</h4>
+              <p>Yes, we offer private yoga lessons upon request. Please contact us to learn more.</p>
+            </div>
+			
+			<div class="resume-item">
+              <h4>Is there a community or social aspect to the studio?</h4>
+              <p>Yes, we believe in fostering a sense of community. We regularly host social gatherings, workshops, and events where you can connect with other like-minded individuals who share your interest in yoga and holistic wellness. Check our website or social media for updates on upcoming events.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What are the benefits of yoga?</h4>
+              <p>Yoga has many benefits for both the body and mind. Some of the benefits of yoga include:</p>
+			  <div class="row">			 
+			 <div class="col-lg-4">
+			  <ul>
+                <li>Increased flexibility and strength</li>
+                <li>Improved balance and coordination</li>
+                <li>Reduced stress and anxiety</li>
+                <li>Improved sleep quality</li>
+				</ul></div>
+			 <div class="col-lg-4">
+			 <ul>
+                <li>Increased self-awareness</li>
+                <li>Reduced pain and inflammation</li>	
+				<li>Improved cardiovascular health</li>
+                <li>Reduced risk of injury</li>	
+              </ul>
+            </div></div>
+			</div>
+			<div class="resume-item">
+              <h4>What are your class fees?</h4>
+              <p>Our class fees vary depending on the type of class and the frequency of your attendance. We offer a variety of membership options to fit your budget and needs.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What is your refund policy / cancellation policy?</h4>
+              <p>Our refund and cancellation policy is specific to the class and package you've selected. To get comprehensive information, kindly reach out to us directly.</p>
+            </div>
+			<div class="resume-item">
+              <h4>How can I pay for my classes or memberships?</h4>
+              <p>We accept payments in cash. Online payment options are also available for your convenience.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What are the qualifications and experience of your yoga instructors?</h4>
+              <p>Our yoga instructors are highly qualified and experienced. They hold relevant certifications and have undergone rigorous training in various yoga disciplines. Many of them have years of experience teaching and have a deep understanding of yoga philosophy and practice.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Do you provide equipment or props for classes?</h4>
+              <p>Yes, we provide a range of yoga equipment and props, including yoga mats, blocks, straps, bolsters, and more. These props are available to enhance your practice and ensure your comfort during classes.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Are there changing and shower facilities at the studio?</h4>
+              <p>Yes, we have changing facilities at our studio for your convenience. However, we currently do not have shower facilities.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Do you have parking available for studio visitors?</h4>
+              <p>We have limited parking spaces available at our studio. Additionally, there are parking options in the vicinity, so you should be able to find parking nearby.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What is your policy on late arrivals or missed classes?</h4>
+              <p> If you arrive late to a class, please enter quietly to minimize disruption. As for missed classes, we offer makeup class options for those who are unable to attend, subject to our makeup class policy. Please inquire at the studio for more details.</p>
+            </div>
+			<div class="resume-item">
+              <h4>What safety measures do you have in place for in-person classes, especially in light of current health concerns?</h4>
+              <p>The health and safety of our students are a top priority. We have implemented COVID-19 safety measures, including social distancing, mask requirements, regular sanitization, and limited class sizes. Please review our COVID-19 policy on our website for full details.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Can I freeze or extend my membership if I'm unable to attend for an extended period?</h4>
+              <p>Yes, we offer options to freeze or extend memberships for clients facing unexpected circumstances or extended absences. Please contact us to discuss your specific situation, and we'll provide guidance on the available options.</p>
+            </div>
+			<div class="resume-item">
+              <h4>Do you offer nutritional guidance or workshops as part of your wellness programs?</h4>
+              <p>Yes, we occasionally offer workshops on nutrition and holistic wellness as part of our comprehensive wellness programs. Keep an eye on our website and social media for announcements about upcoming workshops and programs in this area.</p>
+            </div>
+			<div class="resume-item">
+          </div>
+        </div>
+      </div>
+	  <p>If you have any other questions, please do not hesitate to contact us. We are here to help you on your yoga journey.</p>
+    </section><!-- End Resume Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+        </div>
+
+        <div class="row mt-1">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>91, Kotechanagar, Kalawad Road, Rajkot - 360 001. India</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@nishasyoga.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+91 8866 16 0330</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+<div class="mapouter"><div class="gmap_canvas"><iframe width="770" height="510" id="gmap_canvas" src="https://maps.google.com/maps?q=Nisha's Yoga Studio&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2yu.co">2yu</a><br><style>.mapouter{position:relative;text-align:right;height:510px;width:770px;}</style><a href="https://embedgooglemap.2yu.co">html embed google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:510px;width:770px;}</style></div></div>
+          <!--  <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>-->
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Nisha's Yoga Studio</h3>
+      <p>Envision your highest form.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/nishasyogastudio" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://www.instagram.com/nishasyogastudio/" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="https://wa.me/918866160330" class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
+        <a href="https://www.linkedin.com/company/nishasyogastudio" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Nisha's Yoga Studio</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+ 
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

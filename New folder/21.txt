@@ -1,0 +1,94 @@
+ <?php
+                   
+
+                    // SQL1: Select client_id from demo that are not in the clients table
+                    $sql1 = "SELECT client_id, other_fields FROM demo WHERE client_id NOT IN (SELECT client_id FROM clients)";
+                    $result1 = $conn->query($sql1);
+
+                    // Check if SQL1 returned any results
+                    if ($result1->num_rows > 0) {
+                        echo "<form method='post' action=''>";
+                        echo "<div class='form-group row'>";
+                        echo "<label for='client_id' class='col-sm-3 col-form-label'>Client ID:</label>";
+                        echo "<div class='col-sm-9'>";
+                        echo "<select class='form-control' name='client_id' id='client_id'>";
+                        
+                        // Fetch and populate the dropdown with results from SQL1
+                        while ($row1 = $result1->fetch_assoc()) {
+                            echo "<option value='" . $row1['client_id'] . "'>" . $row1['client_id'] . " - " . $row1['other_fields'] . "</option>";
+                        }
+
+                        echo "</select>";
+                        echo "</div>";  // Close col-sm-9
+                        echo "</div>";  // Close form-group row
+                        echo "<div class='form-group row'>";
+                        echo "<div class='col-sm-12 text-center'>";
+                        echo "<input type='submit' class='btn btn-primary' name='submit' value='Submit'>";
+                        echo "</div>";
+                        echo "</div>";  // Close form-group row
+                        echo "</form>";
+
+                        // Check if a client_id was selected and the form was submitted
+                        if (isset($_POST['submit']) && isset($_POST['client_id'])) {
+                            $selected_client_id = $_POST['client_id'];
+
+                            // SQL2: Select from enquiry where the client_id is the selected one from the dropdown
+                            $sql2 = "SELECT * FROM enquiry WHERE client_id = ?";
+                            $stmt = $conn->prepare($sql2);
+                            $stmt->bind_param("i", $selected_client_id);  // Binding the selected client_id to the SQL query
+                            $stmt->execute();
+                            $result2 = $stmt->get_result();
+
+                            // Check if SQL2 returned any results
+                            if ($result2->num_rows > 0) {
+                                echo "<h3 class='mt-4'>Enquiry Results for Client ID: $selected_client_id</h3>";
+                                while ($row2 = $result2->fetch_assoc()) {
+                                    echo "<p>Enquiry ID: " . $row2['enquiry_id'] . "</p>";
+                                    echo "<p>Details: " . $row2['details'] . "</p>";
+                                    echo "<hr>";
+                                }
+                            } else {
+                                echo "<p>No enquiries found for Client ID: $selected_client_id</p>";
+                            }
+                        }
+                    } else {
+                        echo "No clients found in demo table that are not in clients table.";
+                    }
+
+                    // Close the connection
+                    $conn->close();
+                    ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Client</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Select Client ID</h4>
+                </div>
+                <div class="card-body">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
