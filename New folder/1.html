@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Webcam</title>
+    <style>
+        #videoElement {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Face Recognition - Compare Webcam with Stored Images</h2>
+    
+    <div>
+        <video id="videoElement" autoplay></video>
+    </div>
+
+    <div>
+        <button id="compareButton" class="btn btn-success" disabled>Compare Face</button>
+    </div>
+
+    <!-- Labels to display full file name and trimmed file name -->
+    <div>
+        <label id="fileNameLabel">Full File Name: </label>
+    </div>
+    <div>
+        <label id="trimmedNameLabel">Trimmed Name: </label>
+    </div>
+
+    <!-- Label to display client's information -->
+    <div>
+        <label id="clientInfo">Client Info: </label>
+    </div>
+
+    <script src="includes/js/face-api.js"></script>
+    <script>
+        const video = document.getElementById('videoElement');
+        const compareButton = document.getElementById('compareButton');
+        const fileNameLabel = document.getElementById('fileNameLabel');
+        const trimmedNameLabel = document.getElementById('trimmedNameLabel');
+        const clientInfoLabel = document.getElementById('clientInfo');
+        let webcamFaceDescriptor = null;
+
+        // Load models for face-api.js
+        async function loadModels() {
+            try {
+                await Promise.all([
+                    faceapi.nets.ssdMobilenetv1.loadFromUri('models'),
+                    faceapi.nets.faceLandmark68Net.loadFromUri('models'),
+                    faceapi.nets.faceRecognitionNet.loadFromUri('models')
+                ]);
+                console.log("Models loaded successfully");
+                startVideo();
+            } catch (err) {
+                console.error("Error loading models:", err);
+            }
+        }
+
+        // Start video stream
+        function startVideo() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((err) => {
+                    console.error("Error accessing webcam:", err);
+                });
+        }
+
+        // Compare face button click handler
+        compareButton.addEventListener('click', async () => {
+            const imageFiles = await fetchImageFiles(); // Get list of image files
+            const detections = await faceapi.detectAllFaces(video)
+                .withFaceLandmarks()
+                .withFaceDescriptors();
+
+            if (detections.length === 0) {
+                console.log('No face detected in webcam.');
+                return;
+            }
+
+            const webcamFace = detections[0].descriptor; // Get face descriptor from webcam
+            const comparisonResult = await compareFaceWithImages(webcamFace, imageFiles); // Compare with stored images
+
+            if (comparisonResult) {
+                console.log("Match found with:", comparisonResult);
+                displayFileNames(comparisonResult); // Display full and trimmed file name
+                fetchClientInfo(comparisonResult); // Fetch client info from the database
+            } else {
+                console.log("No match found");
+            }
+        });
+
+        // Fetch image files from server
+        async function fetchImageFiles() {
+            try {
+                const response = await fetch('list_files.php');
+                const imageFiles = await response.json();
+                return imageFiles;
+            } catch (err) {
+                console.error('Error fetching image files:', err);
+                return [];
+            }
+        }
+
+        // Compare the webcam face with the images
+        async function compareFaceWithImages(webcamFace, imageFiles) {
+            for (const imageFile of imageFiles) {
+                const imageUrl = `uploads/Photo/client/${imageFile}`; // Full path to the image file
+                const referenceImage = await faceapi.fetchImage(imageUrl);
+                const referenceDetections = await faceapi.detectAllFaces(referenceImage)
+                    .withFaceLandmarks()
+                    .withFaceDescriptors();
+
+                if (referenceDetections.length > 0) {
+                    const referenceFace = referenceDetections[0].descriptor;
+                    const distance = faceapi.euclideanDistance(webcamFace, referenceFace);
+
+                    // If distance is small, faces match
+                    if (distance < 0.6) { // Adjust threshold if needed
+                        return imageFile;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // Display the full file name and trimmed file name (without prefix and extension)
+        function displayFileNames(fileName) {
+            fileNameLabel.textContent = "Full File Name: " + fileName; // Show full file name
+            const trimmedName = fileName.replace('client_', '').replace(/\.[^/.]+$/, ''); // Remove "client_" and extension
+            trimmedNameLabel.textContent = "Trimmed Name: " + trimmedName; // Show trimmed file name
+        }
+
+async function fetchClientInfo(trimmedName) {
+    try {
+        const response = await fetch('get_client_info.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: trimmedName })
+        });
+
+        // Log the response for debugging purposes
+        const textResponse = await response.text(); // Get the response as text
+        console.log('Response:', textResponse); // Log the response
+
+        // Parse JSON after logging
+        const data = JSON.parse(textResponse);
+
+        if (data.success) {
+            clientInfoLabel.textContent = `Client Info: ${data.first_name} ${data.middle_name} ${data.last_name}`;
+        } else {
+            clientInfoLabel.textContent = "Client not found";
+        }
+    } catch (err) {
+        console.error('Error fetching client info:', err);
+    }
+}
+
+        // Enable compare button when face is detected
+        video.addEventListener('play', async () => {
+            const detections = await faceapi.detectAllFaces(video)
+                .withFaceLandmarks()
+                .withFaceDescriptors();
+
+            if (detections.length > 0) {
+                webcamFaceDescriptor = detections[0].descriptor;
+                compareButton.disabled = false;
+            }
+        });
+
+        // Load models and start the video
+        loadModels();
+    </script>
+</body>
+</html>
