@@ -17,14 +17,15 @@ if (isset($_GET['sort_by'])) {
 }
 
 // Build the SQL query to fetch data with search and sorting
-$sql = "SELECT * FROM rsvp WHERE 
+$sql = "SELECT DATE(timestamp) AS rsvp_date, COUNT(*) AS entry_count FROM rsvp WHERE
         (first_name LIKE '%$search_query%' OR
         last_name LIKE '%$search_query%' OR
         email LIKE '%$search_query%' OR
         phone_number LIKE '%$search_query%' OR
         attending LIKE '%$search_query%' OR
-        dinner LIKE '%$search_query%') 
-        ORDER BY $order_by $order_dir";
+        dinner LIKE '%$search_query%')
+        GROUP BY rsvp_date
+        ORDER BY rsvp_date $order_dir";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -50,42 +51,26 @@ $result = mysqli_query($conn, $sql);
         <!-- RSVP Table -->
         <table class="table table-bordered table-striped">
             <thead>
-                <tr>
-                    <th><a href="?sort_by=first_name&order=<?= ($order_by == 'first_name' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">First Name</a></th>
-                    <th><a href="?sort_by=last_name&order=<?= ($order_by == 'last_name' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Last Name</a></th>
-                    <th><a href="?sort_by=email&order=<?= ($order_by == 'email' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Email</a></th>
-                    <th><a href="?sort_by=phone_number&order=<?= ($order_by == 'phone_number' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Phone</a></th>
-                    <th><a href="?sort_by=attending&order=<?= ($order_by == 'attending' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Attending</a></th>
-                    <th><a href="?sort_by=adults_attending&order=<?= ($order_by == 'adults_attending' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Adults Attending</a></th>
-                    <th><a href="?sort_by=children_attending&order=<?= ($order_by == 'children_attending' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Children Attending</a></th>
-                   <!-- <th><a href="?sort_by=dinner&order=<?= ($order_by == 'dinner' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">Convenience</a></th>
-                    --><th><a href="?sort_by=timestamp&order=<?= ($order_by == 'timestamp' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">RSVP Date</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-				$original_timestamp = $row['timestamp'];
-				$formatted_timestamp = date('d/m/Y h:i A', strtotime($original_timestamp));
+                            <tr>
+                                <th><a href="?sort_by=rsvp_date&order=<?= ($order_by == 'rsvp_date' && $order_dir == 'ASC') ? 'desc' : 'asc' ?>">RSVP Date</a></th>
+                                <th>Entry Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
 
                 if (mysqli_num_rows($result) > 0) {
-                    // Output data of each row
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['first_name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['last_name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['phone_number']) . "</td>";
-                        echo "<td>" . ($row['attending'] == 'yes' ? 'Yes' : 'No') . "</td>";
-                        echo "<td>" . htmlspecialchars($row['adults_attending']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['children_attending']) . "</td>";
-                       // echo "<td>" . ($row['dinner'] == 'yes' ? 'Yes' : 'No') . "</td>";
-						echo "<td>" . htmlspecialchars($formatted_timestamp) . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='9' class='text-center'>No results found</td></tr>";
-                }
-                ?>
+                                   // Output data of each row
+                                   while ($row = mysqli_fetch_assoc($result)) {
+                                       echo "<tr>";
+                                       echo "<td>" . htmlspecialchars($row['rsvp_date']) . "</td>";
+                                       echo "<td>" . htmlspecialchars($row['entry_count']) . "</td>";
+                                       echo "</tr>";
+                                   }
+                               } else {
+                                   echo "<tr><td colspan='2' class='text-center'>No results found</td></tr>";
+                               }
+                               ?>
             </tbody>
         </table>
     </div>

@@ -31,48 +31,210 @@ $clientsResult = $conn->query($clientQuery);
 $planQuery = "SELECT plan_id, plan_type, plan_duration, amount FROM membership_plan WHERE active = 1";
 $plansResult = $conn->query($planQuery);
 
-// Check if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve and sanitize form data
-    $formData['client_id'] = $_POST['client_id'];
-    $formData['plan_id'] = $_POST['plan_id'];
-    $formData['start_date'] = $_POST['start_date'];
-    $formData['amount'] = $_POST['amount'];
-    $formData['couple_name'] = isset($_POST['couple_name']) ? $_POST['couple_name'] : ''; // Avoid undefined key error
-    $formData['payment_type'] = $_POST['payment_type'];
-    $formData['payment_proff'] = $_POST['payment_proff'];
-    $formData['remarks'] = $_POST['remarks'];
+// Function to check if user has previous membership
+function hasPreviousMembership($client_id)
+{
+    global $conn;
+    $query = "SELECT COUNT(*) as count FROM membership WHERE client_id = ? AND active = 0";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $client_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    return $row['count'] > 0;
+}
 
-    $planDurationQuery = $conn->prepare("SELECT plan_duration FROM membership_plan WHERE plan_id = ?");
-    $planDurationQuery->bind_param("i", $formData['plan_id']);
-    $planDurationQuery->execute();
-    $planResult = $planDurationQuery->get_result();
-    $plan = $planResult->fetch_assoc();
+// Function to get client details
+function getClientDetails($client_id)
+{
+    global $conn;
+    $query = "SELECT c.*, m.start_date, m.end_date, m.amount, m.payment_type, m.payment_proff, m.remarks 
+              FROM clients c 
+              LEFT JOIN membership m ON c.client_id = m.client_id 
+              WHERE c.client_id = ? 
+              ORDER BY m.membership_id DESC 
+              LIMIT 1";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $client_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
 
-    if ($plan) {
-        $startDate = new DateTime($formData['start_date']);
-        $endDate = clone $startDate;
+// Function to format date
+function formatDate($date)
+{
+    return date('d/m/Y', strtotime($date));
+}
 
-        // Check if the plan duration is in days or months
-        if (strpos($plan['plan_duration'], 'day') !== false) {
-            // Add days
-            $endDate->modify("+" . $plan['plan_duration'] . " days");
-        } elseif (strpos($plan['plan_duration'], 'month') !== false) {
-            // Add months
-            $endDate->modify("+" . $plan['plan_duration'] . " months");
-        }
+// Function to format phone number with country code
+function formatPhoneNumber($phone)
+{
+    // Remove any non-numeric characters
+    $phone = preg_replace("/[^0-9]/", "", $phone);
 
-        $formData['end_date'] = $endDate->format('Y-m-d');
+    // If number is 10 digits, add 91 as country code
+    if (strlen($phone) === 10) {
+        $phone = "91" . $phone;
     }
 
-    // Insert data into membership table
-    $insertQuery = $conn->prepare("INSERT INTO membership (client_id, plan_id, start_date, end_date, amount, couple_name, payment_type, payment_proff, remarks, active, stamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, NOW())");
-    $insertQuery->bind_param("iississss", $formData['client_id'], $formData['plan_id'], $formData['start_date'], $formData['end_date'], $formData['amount'], $formData['couple_name'], $formData['payment_type'], $formData['payment_proff'], $formData['remarks']);
+    return $phone;
+}
 
-    if ($insertQuery->execute()) {
-        echo "<div class='alert alert-success'>Membership added successfully!</div>";
+function generateWhatsAppMessage($client, $isRenewal)
+{
+    $message = "";
+    if ($isRenewal) {
+        $message = "🎉 *Your Nisha's Yoga Membership Has Been Renewed! 🎉*\n\n";
+        $message .= "Dear " . $client['first_name'] . ",\n\n";
+        $message .= "We're delighted to confirm the successful renewal of your membership with Nisha's Yoga. Thank you for continuing your journey with us!\n\n";
     } else {
-        echo "<div class='alert alert-danger'>Error adding membership: " . $conn->error . "</div>";
+        $message = "🎉 *A Warm Welcome to Nisha's Yoga! 🎉*\n\n";
+        $message .= "Dear " . $client['first_name'] . ",\n\n";
+        $message .= "Welcome aboard! Your membership with Nisha's Yoga has now been successfully activated. We're thrilled to have you as part of our community.\n\n";
+    }
+
+    $message .= "📅 *Membership Overview:*\n";
+    $message .= "Start Date: " . formatDate($client['start_date']) . "\n";
+    $message .= "End Date: " . formatDate($client['end_date']) . "\n";
+    $message .= "Amount Paid: ₹" . number_format($client['amount'], 2) . "\n";
+    $message .= "Payment Type: " . ($client['payment_type'] ?: 'Not specified') . "\n";
+
+    if (!empty($client['remarks'])) {
+        $message .= "Remarks: " . $client['remarks'] . "\n";
+    }
+
+    if (!empty($client['payment_proff'])) {
+        $message .= "Payment Proof: " . $client['payment_proff'] . "\n";
+    }
+
+    $message .= "\nWe appreciate your trust in Nisha's Yoga.\n\n\n\n";
+    $message .= "Best regards,\n";
+    $message .= "The *Client Relations Team*\n";
+    $message .= "Nisha's Yoga Studio\n";
+    $message .= "(A brand of Yognishi Pvt. Ltd.)\n\n";
+
+    $message .= "📝 *Please Note:*\n";
+    $message .= "Should you have any questions or require further assistance, feel free to reach out to us at:\n";
+    $message .= "📞 Phone: +918866160330";
+
+    return urlencode($message);
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $conn->begin_transaction();
+
+        // Get and sanitize form data
+        $client_id = intval($_POST['client_id']);
+        $plan_id = intval($_POST['plan_id']);
+        $start_date = $_POST['start_date'];
+        $amount = floatval($_POST['amount']);
+        $couple_name = $_POST['couple_name'] ?? '';
+        $payment_type = $_POST['payment_type'] ?? '';
+        $payment_proff = $_POST['payment_proff'] ?? '';
+        $remarks = $_POST['remarks'] ?? '';
+
+        // Get plan duration
+        $planQuery = "SELECT plan_duration FROM membership_plan WHERE plan_id = ?";
+        $planStmt = $conn->prepare($planQuery);
+        if (!$planStmt) {
+            throw new Exception("Error preparing plan query: " . $conn->error);
+        }
+
+        $planStmt->bind_param("i", $plan_id);
+        if (!$planStmt->execute()) {
+            throw new Exception("Error executing plan query: " . $planStmt->error);
+        }
+
+        $planResult = $planStmt->get_result();
+        $plan = $planResult->fetch_assoc();
+
+        if (!$plan) {
+            throw new Exception("No plan found for the selected plan");
+        }
+
+        $plan_duration = $plan['plan_duration'];
+
+        // Calculate end date based on plan duration
+        $start = new DateTime($start_date);
+        $end = clone $start;
+
+        // Parse duration (e.g., "1 Month", "3 Months", "1 Year")
+        if (preg_match('/(\d+)\s+(Month|Year)s?/', $plan_duration, $matches)) {
+            $number = intval($matches[1]);
+            $unit = $matches[2];
+
+            if ($unit === 'Month') {
+                $end->modify("+{$number} months");
+            } else if ($unit === 'Year') {
+                $end->modify("+{$number} years");
+            }
+        } else {
+            throw new Exception("Invalid plan duration format");
+        }
+
+        // Subtract one day to make it inclusive
+        $end->modify('-1 day');
+        $end_date = $end->format('Y-m-d');
+
+        // Deactivate previous membership
+        $deactivateQuery = "UPDATE membership SET active = 0 WHERE client_id = ? AND active = 1";
+        $deactivateStmt = $conn->prepare($deactivateQuery);
+        $deactivateStmt->bind_param("i", $client_id);
+        $deactivateStmt->execute();
+
+        // Insert new membership
+        $insertQuery = "INSERT INTO membership (client_id, plan_id, start_date, end_date, amount, couple_name, payment_type, payment_proff, remarks, active) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        $insertStmt = $conn->prepare($insertQuery);
+        $insertStmt->bind_param(
+            "iisssssss",
+            $client_id,
+            $plan_id,
+            $start_date,
+            $end_date,
+            $amount,
+            $couple_name,
+            $payment_type,
+            $payment_proff,
+            $remarks
+        );
+
+        if (!$insertStmt->execute()) {
+            throw new Exception("Error inserting new membership: " . $insertStmt->error);
+        }
+
+        // Get client details
+        $client = getClientDetails($client_id);
+
+        if (!$client) {
+            throw new Exception("Client details not found");
+        }
+
+        // Check if it's a renewal
+        $isRenewal = hasPreviousMembership($client_id);
+
+        // Generate WhatsApp message
+        $message = generateWhatsAppMessage($client, $isRenewal);
+
+        // Format phone number with country code
+        $formatted_phone = formatPhoneNumber($client['fullPhoneNumber']);
+
+        // Create WhatsApp URL
+        $whatsapp_url = "https://wa.me/" . $formatted_phone . "?text=" . $message;
+
+        // Commit the transaction
+        $conn->commit();
+
+        // Redirect to WhatsApp only after successful insert
+        header("Location: " . $whatsapp_url);
+        exit();
+    } catch (Exception $e) {
+        // Rollback the transaction on error
+        $conn->rollback();
+        $error = $e->getMessage();
+        error_log("Error in membership creation: " . $error);
     }
 }
 
@@ -112,6 +274,15 @@ while ($row = $membershipsResult->fetch_assoc()) {
         $groupLessThan0[] = $row;
     }
 }
+
+// Function to format date for display
+function formatDateForDisplay($date)
+{
+    if (empty($date) || $date == '0000-00-00') {
+        return 'N/A';
+    }
+    return date('d/m/Y', strtotime($date));
+}
 ?>
 
 <!DOCTYPE html>
@@ -147,6 +318,10 @@ while ($row = $membershipsResult->fetch_assoc()) {
         .popup-content .form-group {
             margin-bottom: 15px;
         }
+
+        .date-cell {
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -156,26 +331,22 @@ while ($row = $membershipsResult->fetch_assoc()) {
         <form method="post">
             <div class="row">
                 <div class="col-md-6">
-                    <label for="client_id">Client</label>
-                    <select id="client_id" name="client_id" class="form-control" required>
-                        <option value="">Select Client</option>
-                        <?php while ($client = $clientsResult->fetch_assoc()): ?>
-                            <option value="<?= htmlspecialchars($client['client_id']) ?>">
-                                <?= htmlspecialchars($client['fullname'] . ' (' . $client['fullPhoneNumber'] . ')') ?>
-                            </option>
-                        <?php endwhile; ?>
-                    </select>
+                    <label for="client_search">Client</label>
+                    <div class="client-search-container position-relative">
+                        <input type="text" id="client_search" class="form-control" placeholder="Search by client name..." autocomplete="off">
+                        <input type="hidden" id="client_id" name="client_id">
+                        <input type="hidden" id="client_name" name="client_name">
+                    </div>
                 </div>
-
                 <div class="col-md-6">
                     <label for="plan_id">Plan</label>
                     <select id="plan_id" name="plan_id" class="form-control" required>
                         <option value="">Select Plan</option>
                         <?php while ($plan = $plansResult->fetch_assoc()): ?>
                             <option value="<?= htmlspecialchars($plan['plan_id']) ?>"
-                                data-duration="<?= htmlspecialchars($plan['plan_duration']) ?>"
-                                data-amount="<?= htmlspecialchars($plan['amount']) ?>">
-                                <?= htmlspecialchars($plan['plan_type'] . ' (' . $plan['plan_duration'] . ' days)') ?>
+                                data-amount="<?= htmlspecialchars($plan['amount']) ?>"
+                                data-duration="<?= htmlspecialchars($plan['plan_duration']) ?>">
+                                <?= htmlspecialchars($plan['plan_type'] . ' (' . $plan['plan_duration'] . ')') ?>
                             </option>
                         <?php endwhile; ?>
                     </select>
@@ -228,30 +399,15 @@ while ($row = $membershipsResult->fetch_assoc()) {
     <div class="container mt-5">
         <h2 class="mb-4">Memberships Grouped by End Date</h2>
 
-        <h3>10+ Days Remaining</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Client Name</th>
-                    <th>Plan</th>
-                    <th>End Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($group10Plus as $membership): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($membership['first_name'] . ' ' . $membership['last_name']) ?></td>
-                        <td><?= htmlspecialchars($membership['plan_id']) ?></td>
-                        <td><?= htmlspecialchars($membership['end_date']) ?></td>
-                        <td><button class="btn btn-primary" onclick="collectFees(<?= htmlspecialchars($membership['client_id']) ?>)">Collect Fees</button></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <!-- Add search input -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by client name...">
+            </div>
+        </div>
 
         <h3>Less Than 10 Days Remaining</h3>
-        <table class="table table-striped">
+        <table class="table table-striped" id="tableLessThan10">
             <thead>
                 <tr>
                     <th>Client Name</th>
@@ -265,7 +421,29 @@ while ($row = $membershipsResult->fetch_assoc()) {
                     <tr>
                         <td><?= htmlspecialchars($membership['first_name'] . ' ' . $membership['last_name']) ?></td>
                         <td><?= htmlspecialchars($membership['plan_id']) ?></td>
-                        <td><?= htmlspecialchars($membership['end_date']) ?></td>
+                        <td class="date-cell"><?= formatDateForDisplay($membership['end_date']) ?></td>
+                        <td><button class="btn btn-primary" onclick="collectFees(<?= htmlspecialchars($membership['client_id']) ?>)">Collect Fees</button></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <h3>10+ Days Remaining</h3>
+        <table class="table table-striped" id="table10Plus">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Plan</th>
+                    <th>End Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($group10Plus as $membership): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($membership['first_name'] . ' ' . $membership['last_name']) ?></td>
+                        <td><?= htmlspecialchars($membership['plan_id']) ?></td>
+                        <td class="date-cell"><?= formatDateForDisplay($membership['end_date']) ?></td>
                         <td><button class="btn btn-primary" onclick="collectFees(<?= htmlspecialchars($membership['client_id']) ?>)">Collect Fees</button></td>
                     </tr>
                 <?php endforeach; ?>
@@ -273,7 +451,7 @@ while ($row = $membershipsResult->fetch_assoc()) {
         </table>
 
         <h3>Expired Memberships</h3>
-        <table class="table table-striped">
+        <table class="table table-striped" id="tableExpired">
             <thead>
                 <tr>
                     <th>Client Name</th>
@@ -287,7 +465,7 @@ while ($row = $membershipsResult->fetch_assoc()) {
                     <tr>
                         <td><?= htmlspecialchars($membership['first_name'] . ' ' . $membership['last_name']) ?></td>
                         <td><?= htmlspecialchars($membership['plan_id']) ?></td>
-                        <td><?= htmlspecialchars($membership['end_date']) ?></td>
+                        <td class="date-cell"><?= formatDateForDisplay($membership['end_date']) ?></td>
                         <td><button class="btn btn-primary" onclick="collectFees(<?= htmlspecialchars($membership['client_id']) ?>)">Collect Fees</button></td>
                     </tr>
                 <?php endforeach; ?>
@@ -297,7 +475,78 @@ while ($row = $membershipsResult->fetch_assoc()) {
 
     <!-- Show Membership Form when Collect Fees is Clicked -->
     <div id="membershipForm" style="display:none;">
-        <?php include 'form.php'; ?> <!-- Assuming the form HTML is in form.php -->
+        <form method="post" class="mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="client_search">Client</label>
+                    <div class="client-search-container position-relative">
+                        <input type="text" id="client_search" class="form-control" placeholder="Search by client name..." autocomplete="off">
+                        <input type="hidden" id="client_id" name="client_id">
+                        <input type="hidden" id="client_name" name="client_name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="plan_id">Plan</label>
+                    <select id="plan_id" name="plan_id" class="form-control" required>
+                        <option value="">Select Plan</option>
+                        <?php while ($plan = $plansResult->fetch_assoc()): ?>
+                            <option value="<?= htmlspecialchars($plan['plan_id']) ?>"
+                                data-amount="<?= htmlspecialchars($plan['amount']) ?>"
+                                data-duration="<?= htmlspecialchars($plan['plan_duration']) ?>">
+                                <?= htmlspecialchars($plan['plan_type'] . ' (' . $plan['plan_duration'] . ')') ?>
+                            </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="end_date">End Date</label>
+                    <input type="text" id="end_date" name="end_date" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" class="form-control" required readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="payment_type">Payment Type</label>
+                    <select id="payment_type" name="payment_type" class="form-control" required>
+                        <option value="">Select Payment Type</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Online">Online</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="payment_proff">Payment Proof</label>
+                    <input type="text" id="payment_proff" name="payment_proff" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="couple_name">Couple Name</label>
+                    <input type="text" id="couple_name" name="couple_name" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="remarks">Remarks</label>
+                    <input type="text" id="remarks" name="remarks" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -447,35 +696,357 @@ while ($row = $membershipsResult->fetch_assoc()) {
             document.getElementById('currencyResult').innerHTML = message;
         }
 
+        // ======================== Search Functionality ========================
+        function filterTable(input, tableId) {
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById(tableId);
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cell = cells[j];
+                    if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                row.style.display = found ? '' : 'none';
+            }
+        }
+
+        // ======================== Client Search Functionality ========================
+        let searchTimeout;
+        const searchResults = document.createElement('div');
+        searchResults.className = 'search-results';
+        searchResults.style.display = 'none';
+        searchResults.style.position = 'absolute';
+        searchResults.style.zIndex = '1000';
+        searchResults.style.backgroundColor = 'white';
+        searchResults.style.border = '1px solid #ddd';
+        searchResults.style.maxHeight = '200px';
+        searchResults.style.overflowY = 'auto';
+        searchResults.style.width = '100%';
+        searchResults.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+
+        function searchClients(input) {
+            clearTimeout(searchTimeout);
+            const searchValue = input.value.trim();
+
+            if (searchValue.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                $.ajax({
+                    url: 'search_clients.php',
+                    method: 'GET',
+                    data: {
+                        query: searchValue
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.error) {
+                            console.error('Search error:', response.error);
+                            return;
+                        }
+
+                        searchResults.innerHTML = '';
+                        if (!response || response.length === 0) {
+                            searchResults.innerHTML = '<div class="p-2">No clients found</div>';
+                        } else {
+                            response.forEach(client => {
+                                const div = document.createElement('div');
+                                div.className = 'p-2 border-bottom hover-bg-light';
+                                div.style.cursor = 'pointer';
+                                div.innerHTML = `${client.display_name} - ${client.fullPhoneNumber}`;
+                                div.onclick = () => selectClient(client);
+                                searchResults.appendChild(div);
+                            });
+                        }
+                        searchResults.style.display = 'block';
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error searching clients:', error);
+                        searchResults.innerHTML = '<div class="p-2 text-danger">Error searching clients</div>';
+                        searchResults.style.display = 'block';
+                    }
+                });
+            }, 300);
+        }
+
+        function selectClient(client) {
+            const clientSearch = document.getElementById('client_search');
+            const clientIdInput = document.getElementById('client_id');
+
+            if (clientSearch) clientSearch.value = client.display_name;
+            if (clientIdInput) clientIdInput.value = client.client_id;
+
+            searchResults.style.display = 'none';
+
+            // Get current membership details
+            $.ajax({
+                url: 'get_client_membership.php',
+                method: 'GET',
+                data: {
+                    client_id: client.client_id
+                },
+                success: function(response) {
+                    if (response.error) {
+                        console.error('Error:', response.error);
+                        return;
+                    }
+
+                    // Fill the form with current membership details
+                    if (response) {
+                        // Fill plan if available
+                        if (response.plan_id) {
+                            const planDropdown = document.getElementById('plan_id');
+                            if (planDropdown) {
+                                planDropdown.value = response.plan_id;
+                                updateAmount();
+                                toggleCoupleName();
+                            }
+                        }
+
+                        // Fill start date if available
+                        if (response.next_start_date) {
+                            const startDateInput = document.getElementById('start_date');
+                            if (startDateInput) {
+                                startDateInput.value = response.next_start_date;
+                                updateEndDate();
+                            }
+                        }
+
+                        // Fill amount if available
+                        if (response.amount) {
+                            const amountInput = document.getElementById('amount');
+                            if (amountInput) amountInput.value = response.amount;
+                        }
+
+                        // Get next membership details
+                        $.ajax({
+                            url: 'get_next_membership.php',
+                            method: 'GET',
+                            data: {
+                                client_id: client.client_id
+                            },
+                            success: function(nextResponse) {
+                                if (nextResponse.error) {
+                                    console.error('Error:', nextResponse.error);
+                                    return;
+                                }
+
+                                // Update form with next membership details
+                                if (nextResponse) {
+                                    // Update plan if different
+                                    if (nextResponse.plan_id && nextResponse.plan_id !== response.plan_id) {
+                                        const planDropdown = document.getElementById('plan_id');
+                                        if (planDropdown) {
+                                            planDropdown.value = nextResponse.plan_id;
+                                            updateAmount();
+                                            toggleCoupleName();
+                                        }
+                                    }
+
+                                    // Update start date if different
+                                    if (nextResponse.next_start_date && nextResponse.next_start_date !== response.next_start_date) {
+                                        const startDateInput = document.getElementById('start_date');
+                                        if (startDateInput) {
+                                            startDateInput.value = nextResponse.next_start_date;
+                                            updateEndDate();
+                                        }
+                                    }
+
+                                    // Update amount if different
+                                    if (nextResponse.amount && nextResponse.amount !== response.amount) {
+                                        const amountInput = document.getElementById('amount');
+                                        if (amountInput) amountInput.value = nextResponse.amount;
+                                    }
+                                }
+                            },
+                            error: function() {
+                                console.error('Error loading next membership details');
+                            }
+                        });
+                    }
+                },
+                error: function() {
+                    console.error('Error loading current membership details');
+                }
+            });
+        }
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            const searchContainer = document.querySelector('.client-search-container');
+            if (searchContainer && !searchContainer.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // ======================== Collect Fees Function ========================
+        function collectFees(clientId) {
+            // Get current membership details
+            $.ajax({
+                url: 'get_client_membership.php',
+                method: 'GET',
+                data: {
+                    client_id: clientId
+                },
+                success: function(response) {
+                    if (response.error) {
+                        console.error('Error:', response.error);
+                        return;
+                    }
+
+                    // Fill the form with current membership details
+                    if (response) {
+                        // Set client search value
+                        const clientSearch = document.getElementById('client_search');
+                        const clientIdInput = document.getElementById('client_id');
+                        if (clientSearch) clientSearch.value = response.client_name;
+                        if (clientIdInput) clientIdInput.value = response.client_id;
+
+                        // Fill plan if available
+                        if (response.plan_id) {
+                            const planDropdown = document.getElementById('plan_id');
+                            if (planDropdown) {
+                                planDropdown.value = response.plan_id;
+                                updateAmount();
+                                toggleCoupleName();
+                            }
+                        }
+
+                        // Fill start date if available
+                        if (response.next_start_date) {
+                            const startDateInput = document.getElementById('start_date');
+                            if (startDateInput) {
+                                startDateInput.value = response.next_start_date;
+                                updateEndDate();
+                            }
+                        }
+
+                        // Fill amount if available
+                        if (response.amount) {
+                            const amountInput = document.getElementById('amount');
+                            if (amountInput) amountInput.value = response.amount;
+                        }
+
+                        // Get next membership details
+                        $.ajax({
+                            url: 'get_next_membership.php',
+                            method: 'GET',
+                            data: {
+                                client_id: clientId
+                            },
+                            success: function(nextResponse) {
+                                if (nextResponse.error) {
+                                    console.error('Error:', nextResponse.error);
+                                    return;
+                                }
+
+                                // Update form with next membership details
+                                if (nextResponse) {
+                                    // Update plan if different
+                                    if (nextResponse.plan_id && nextResponse.plan_id !== response.plan_id) {
+                                        const planDropdown = document.getElementById('plan_id');
+                                        if (planDropdown) {
+                                            planDropdown.value = nextResponse.plan_id;
+                                            updateAmount();
+                                            toggleCoupleName();
+                                        }
+                                    }
+
+                                    // Update start date if different
+                                    if (nextResponse.next_start_date && nextResponse.next_start_date !== response.next_start_date) {
+                                        const startDateInput = document.getElementById('start_date');
+                                        if (startDateInput) {
+                                            startDateInput.value = nextResponse.next_start_date;
+                                            updateEndDate();
+                                        }
+                                    }
+
+                                    // Update amount if different
+                                    if (nextResponse.amount && nextResponse.amount !== response.amount) {
+                                        const amountInput = document.getElementById('amount');
+                                        if (amountInput) amountInput.value = nextResponse.amount;
+                                    }
+                                }
+                            },
+                            error: function() {
+                                console.error('Error loading next membership details');
+                            }
+                        });
+                    }
+                },
+                error: function() {
+                    console.error('Error loading current membership details');
+                }
+            });
+        }
+
         // ======================== Event Initializers ========================
         function initializeEventListeners() {
-            const clientDropdown = document.getElementById('client_id');
-            const planDropdown = document.getElementById('plan_id');
-            const startDateInput = document.getElementById('start_date');
-            const paymentDropdown = document.getElementById('payment_type');
+            // Get all potential elements
+            const elements = {
+                clientSearch: document.getElementById('client_search'),
+                planDropdown: document.getElementById('plan_id'),
+                startDateInput: document.getElementById('start_date'),
+                paymentDropdown: document.getElementById('payment_type'),
+                searchInput: document.getElementById('searchInput')
+            };
 
-            if (clientDropdown) {
-                clientDropdown.addEventListener('change', function() {
-                    const clientId = clientDropdown.value;
-                    if (clientId) loadMembershipDetails(clientId);
+            // Initialize client search if it exists
+            if (elements.clientSearch) {
+                const searchContainer = elements.clientSearch.closest('.client-search-container');
+                if (searchContainer) {
+                    searchContainer.appendChild(searchResults);
+                }
+
+                elements.clientSearch.addEventListener('input', function() {
+                    searchClients(this);
+                });
+
+                elements.clientSearch.addEventListener('focus', function() {
+                    if (this.value.length >= 2) {
+                        searchClients(this);
+                    }
                 });
             }
 
-            if (planDropdown) {
-                planDropdown.addEventListener('change', () => {
+            // Initialize plan dropdown if it exists
+            if (elements.planDropdown) {
+                elements.planDropdown.addEventListener('change', () => {
                     updateAmount();
                     toggleCoupleName();
                     updateEndDate();
                 });
             }
 
-            if (startDateInput) {
-                startDateInput.addEventListener('change', updateEndDate);
+            // Initialize start date input if it exists
+            if (elements.startDateInput) {
+                elements.startDateInput.addEventListener('change', updateEndDate);
             }
 
-            if (paymentDropdown) {
-                paymentDropdown.addEventListener('change', () => {
-                    if (paymentDropdown.value === 'Cash') openCurrencyPopup();
+            // Initialize payment dropdown if it exists
+            if (elements.paymentDropdown) {
+                elements.paymentDropdown.addEventListener('change', () => {
+                    if (elements.paymentDropdown.value === 'Cash') openCurrencyPopup();
+                });
+            }
+
+            // Initialize search input if it exists
+            if (elements.searchInput) {
+                elements.searchInput.addEventListener('keyup', () => {
+                    filterTable(elements.searchInput, 'table10Plus');
+                    filterTable(elements.searchInput, 'tableLessThan10');
+                    filterTable(elements.searchInput, 'tableExpired');
                 });
             }
         }
@@ -486,6 +1057,18 @@ while ($row = $membershipsResult->fetch_assoc()) {
             updateAmount();
             toggleCoupleName();
         });
+
+        // Add some CSS for hover effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .hover-bg-light:hover {
+                background-color: #f8f9fa;
+            }
+            .search-results div {
+                transition: background-color 0.2s;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
 </body>

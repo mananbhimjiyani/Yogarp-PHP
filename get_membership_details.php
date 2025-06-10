@@ -1,37 +1,46 @@
 <?php
-require_once 'db.php'; // Include database connection
+require_once 'db.php';
 
-// Check if client_id is provided
 if (isset($_GET['client_id'])) {
-    $client_id = intval($_GET['client_id']); // Sanitize input
+    $client_id = intval($_GET['client_id']);
 
-    // Fetch membership details for the given client_id
-    $query = "
-        SELECT 
-            m.client_id, 
-            m.plan_id, 
-            m.start_date, 
-            m.end_date, 
-            m.amount, 
-            m.couple_name, 
-            m.payment_type, 
-            m.payment_proff, 
-            m.remarks,
-            c.first_name,
-            c.last_name,
-            p.plan_type
-        FROM membership m
-        INNER JOIN clients c ON m.client_id = c.client_id
-        INNER JOIN membership_plan p ON m.plan_id = p.plan_id
-        WHERE m.client_id = ? AND m.active = 1
-    ";
+    // Get the latest membership details and client information
+    $query = "SELECT 
+        c.client_id,
+        CONCAT(c.title, ' ', c.first_name, ' ', COALESCE(c.middle_name, ''), ' ', c.last_name) as client_name,
+        m.plan_id,
+        m.end_date as last_end_date,
+        mp.plan_type,
+        mp.plan_duration,
+        mp.amount
+        FROM clients c
+        LEFT JOIN (
+            SELECT client_id, plan_id, end_date
+            FROM membership
+            WHERE client_id = ? AND active = 1
+            ORDER BY end_date DESC
+            LIMIT 1
+        ) m ON c.client_id = m.client_id
+        LEFT JOIN membership_plan mp ON m.plan_id = mp.plan_id
+        WHERE c.client_id = ?";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $client_id);
+    $stmt->bind_param("ii", $client_id, $client_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($membership = $result->fetch_assoc()) {
+    if ($row = $result->fetch_assoc()) {
+        // Convert dates to proper format and calculate next start date
+        $lastEndDate = $row['last_end_date'];
+        $nextStartDate = null;
+
+        if ($lastEndDate) {
+            // Calculate next start date (previous end date + 1 day)
+            $nextStartDate = date('Y-m-d', strtotime($lastEndDate . ' +1 day'));
+        } else {
+            // If no previous membership, use current date
+            $nextStartDate = date('Y-m-d');
+        }
 ?>
         <div class="popup-overlay">
             <div class="popup-content">
